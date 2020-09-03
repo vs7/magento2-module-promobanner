@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="vs7_promobanner" resource="default" engine="innodb" comment="Banners">
+        <column xsi:type="int" name="banner_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Banner ID"/>
+        <column xsi:type="int" name="rule_id" padding="10" unsigned="true" nullable="false" comment="Rule ID"/>
+        <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+        <column xsi:type="varchar" name="url_key" nullable="true" length="255" comment="URL Key"/>
+        <column xsi:type="varchar" name="image" nullable="true" length="255" comment="Image"/>
+        <column xsi:type="text" name="text" nullable="true" comment="Text"/>
+        <column xsi:type="int" name="position" padding="5" unsigned="true" nullable="false" identity="false" default="0"
+                comment="Position"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="true" default="CURRENT_TIMESTAMP"
+                comment="Banner Creation Date"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="true" default="CURRENT_TIMESTAMP"
+                comment="Banner Change Date"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="banner_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="VS7_PROMOBANNER_RULE_ID_SALESRULE_RULE_ID"
+                    table="vs7_promobanner"
+                    column="rule_id" referenceTable="salesrule" referenceColumn="rule_id" onDelete="CASCADE"/>
+        <index referenceId="VS7_PROMOBANNER_RULE_ID" indexType="btree">
+            <column name="rule_id"/>
+        </index>
+    </table>
+    <table name="vs7_promobanner_category" resource="default" engine="innodb" comment="Banners">
+        <column xsi:type="int" name="relation_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Relation ID"/>
+        <column xsi:type="int" name="banner_id" padding="10" unsigned="true" nullable="false" comment="Banner ID"/>
+        <column xsi:type="int" name="category_id" padding="10" unsigned="true" nullable="false" comment="Category ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="relation_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="VS7_PROMOBANNER_CATEGORY_RULE_ID_CATALOG_CATEGORY_ENTITY_ENTITY_ID"
+                    table="vs7_promobanner_category"
+                    column="category_id" referenceTable="catalog_category_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="VS7_PROMOBANNER_CATEGORY_BANNER_ID_VS7_PROMOBANNER_BANNER_ID"
+                    table="vs7_promobanner_category"
+                    column="banner_id" referenceTable="vs7_promobanner" referenceColumn="banner_id" onDelete="CASCADE"/>
+        <index referenceId="VS7_PROMOBANNER_BANNER_ID" indexType="btree">
+            <column name="banner_id"/>
+        </index>
+        <index referenceId="VS7_PROMOBANNER_CATEGORY_ID" indexType="btree">
+            <column name="category_id"/>
+        </index>
+    </table>
+</schema>
