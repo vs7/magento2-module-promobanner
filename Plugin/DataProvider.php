@@ -30,7 +30,8 @@ class DataProvider
             'url_key' => $banner->getUrlKey(),
             'image' => array($image),
             'position' => $banner->getPosition(),
-            'text' => $banner->getText()
+            'text' => $banner->getText(),
+            'category_ids' => $banner->getCategoryIds($banner)
         );
         if (empty($image)) unset($data[$ruleId]['vs7_promobanner']['image']);
         return $data;

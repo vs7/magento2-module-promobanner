@@ -28,4 +28,9 @@ class Banner extends AbstractModel implements IdentityInterface
         $values = [];
         return $values;
     }
+
+    public function getCategoryIds()
+    {
+        return $this->_getResource()->getCategoryIds($this);
+    }
 }

@@ -46,6 +46,7 @@ class Rule
                 || !empty($postData['vs7_promobanner']['image'])
                 || !empty($postData['vs7_promobanner']['position'])
                 || !empty($postData['vs7_promobanner']['text'])
+                || !empty($postData['vs7_promobanner']['category_ids'])
             )
         ) {
             $banner = $this->_bannerFactory->create();
@@ -61,6 +62,8 @@ class Rule
             } else {
                 $bannerData['image'] = '';
             }
+            
+            
             $banner->setData($bannerData);
             $banner->save();
         }
