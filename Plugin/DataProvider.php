@@ -21,6 +21,10 @@ class DataProvider
         $data
     )
     {
+        if (empty($data)) {
+            return [];
+        }
+        
         $banner = $this->_bannerFactory->create();
         $ruleId = key($data);
         $banner->load($ruleId, 'rule_id');
