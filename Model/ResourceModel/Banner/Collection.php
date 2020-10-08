@@ -36,6 +36,23 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         $this->_init('VS7\PromoBanner\Model\Banner', 'VS7\PromoBanner\Model\ResourceModel\Banner');
     }
 
+    public function addCategoryFilter($categoryIds)
+    {
+        if (!is_array($categoryIds)) {
+            $categoryIds = array($categoryIds);
+        }
+
+        $this->getSelect()
+            ->joinLeft(
+                array('banner_category' => $this->getTable('vs7_promobanner_category')),
+                'main_table.banner_id=banner_category.banner_id',
+                array()
+            )
+            ->where('banner_category.category_id IN (?)', implode(',', $categoryIds));
+
+        return $this;
+    }
+
     public function addActiveRuleFilter()
     {
         $now = $this->_timezone->date()->format('Y-m-d');

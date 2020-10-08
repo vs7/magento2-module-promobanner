@@ -1,13 +1,11 @@
-<?php if ($block->getCollection()) : ?>
+<?php if ($block->getBannerCollection() && $block->getBannerCollection()->getSize() > 0) : ?>
     <div class="vs7_promobanner-container">
-    <?php if ($block->getCollection()->getSize() > 0) : ?>
-        <?php foreach ($block->getCollection() as $banner): ?>
-            <div class="vs7_promobanner-banner">
-                <a href="<?php echo $banner->getUrlKey(); ?>">
-                    <img src="<?php echo $banner->getImage(); ?>" alt="<?php echo $banner->getName(); ?>" title="<?php echo $banner->getName(); ?>"/>
-                </a>
-            </div>
-        <?php endforeach; ?>
-    <?php endif;?>
+    <?php foreach ($block->getBannerCollection() as $banner): ?>
+        <div class="vs7_promobanner-banner">
+            <a href="<?php echo $banner->getUrlKey(); ?>">
+                <img src="<?php echo $banner->getImage(); ?>" alt="<?php echo $banner->getName(); ?>" title="<?php echo $banner->getName(); ?>"/>
+            </a>
+        </div>
+    <?php endforeach; ?>
     </div>
 <?php endif;?>
